@@ -82,6 +82,13 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       });
     }
 
-    console.log(koszyk);
+    let przedmiotywKoszyku = 0;
+
+    koszyk.forEach((przedmiot) => {
+      przedmiotywKoszyku += przedmiot.ilość;
+    });
+
+    document.querySelector(".js-przedmioty-wkoszyku").innerHTML =
+      przedmiotywKoszyku;
   });
 });
