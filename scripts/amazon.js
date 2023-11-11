@@ -26,6 +26,15 @@ const produkty = [
     },
     cenaGrosze: 3999,
   },
+  {
+    obrazek: "images/products/black-2-slot-toaster.jpg",
+    nazwa: "2 Slot Toaster - Black",
+    ocena: {
+      gwiazdki: 5,
+      licznik: 2197,
+    },
+    cenaGrosze: 8999,
+  },
 ];
 
 let produktyHTML = "";
