@@ -50,11 +50,38 @@ produkty.forEach((produkt) => {
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">Add to Cart</button>
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-nazwa-produktu="${
+              produkt.nazwa
+            }" data-id-produktu="${produkt.id}">Add to Cart</button>
             </div>
     `;
 });
 
-console.log(produktyHTML);
-
 document.querySelector(".js-products-grid").innerHTML = produktyHTML;
+
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    const idProduktu = button.dataset.idProduktu;
+    const nazwaProduktu = button.dataset.nazwaProduktu;
+
+    let dopasowanyPrzedmiot;
+
+    koszyk.forEach((przedmiot) => {
+      if (idProduktu === przedmiot.idProduktu) {
+        dopasowanyPrzedmiot = przedmiot;
+      }
+    });
+
+    if (dopasowanyPrzedmiot) {
+      dopasowanyPrzedmiot.ilość += 1;
+    } else {
+      koszyk.push({
+        idProduktu: idProduktu,
+        ilość: 1,
+        nazwaProduktu: nazwaProduktu,
+      });
+    }
+
+    console.log(koszyk);
+  });
+});
