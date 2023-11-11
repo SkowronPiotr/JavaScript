@@ -1,42 +1,3 @@
-const produkty = [
-  {
-    obrazek: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    nazwa: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    ocena: {
-      gwiazdki: 4.5,
-      licznik: 87,
-    },
-    cenaGrosze: 3999,
-  },
-  {
-    obrazek: "images/products/intermediate-composite-basketball.jpg",
-    nazwa: "Intermediate Size Basketball",
-    ocena: {
-      gwiazdki: 4,
-      licznik: 127,
-    },
-    cenaGrosze: 11000,
-  },
-  {
-    obrazek: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-    nazwa: "Adults Plain Cotton T-Shirt - 2 Pack",
-    ocena: {
-      gwiazdki: 4.5,
-      licznik: 56,
-    },
-    cenaGrosze: 3999,
-  },
-  {
-    obrazek: "images/products/black-2-slot-toaster.jpg",
-    nazwa: "2 Slot Toaster - Black",
-    ocena: {
-      gwiazdki: 5,
-      licznik: 2197,
-    },
-    cenaGrosze: 8999,
-  },
-];
-
 let produktyHTML = "";
 
 produkty.forEach((produkt) => {
@@ -56,7 +17,7 @@ produkty.forEach((produkt) => {
             <div class="product-rating-container">
                 <img
                 class="product-rating-stars"
-                src="images/ratings/rating-${produkt.ocena.gwiazdki * 10}.png"
+                src="obrazy/ratings/rating-${produkt.ocena.gwiazdki * 10}.png"
                 />
                 <div class="product-rating-count link-primary">${
                   produkt.ocena.licznik
