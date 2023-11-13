@@ -1,1 +1,1 @@
-const koszyk = [];
+export const koszyk = [];

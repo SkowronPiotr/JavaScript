@@ -1,3 +1,5 @@
+import { koszyk } from "../data/koszyk.js";
+
 let produktyHTML = "";
 
 produkty.forEach((produkt) => {
