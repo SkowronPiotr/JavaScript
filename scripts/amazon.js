@@ -1,5 +1,6 @@
 import { koszyk, dodajDoKoszyka } from "../data/koszyk.js";
 import { produkty } from "../data/products.js";
+import { dzieleniePieniedzy } from "./narzędzia/waluta.js";
 
 let produktyHTML = "";
 
@@ -27,8 +28,8 @@ produkty.forEach((produkt) => {
                 }</div>
             </div>
 
-            <div class="product-price">${(produkt.cenaGrosze / 100).toFixed(
-              2
+            <div class="product-price">${dzieleniePieniedzy(
+              produkt.cenaGrosze
             )}zł</div>
 
             <div class="product-quantity-container">
