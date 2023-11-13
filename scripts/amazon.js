@@ -1,4 +1,5 @@
 import { koszyk } from "../data/koszyk.js";
+import { produkty } from "../data/products.js";
 
 let produktyHTML = "";
 
