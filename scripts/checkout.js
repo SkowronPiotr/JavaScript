@@ -103,5 +103,10 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const idProduktu = link.dataset.productId;
     usunZKoszyka(idProduktu);
+
+    const pojemnik = document.querySelector(
+      `.js-cart-item-container-${idProduktu}`
+    );
+    pojemnik.remove();
   });
 });
