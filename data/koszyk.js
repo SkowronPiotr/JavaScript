@@ -1,13 +1,21 @@
-export let koszyk = [
-  {
-    idProduktu: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    ilość: 2,
-  },
-  {
-    idProduktu: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-    ilość: 1,
-  },
-];
+export let koszyk = JSON.parse(localStorage.getItem("koszyk"));
+
+if (!koszyk) {
+  koszyk = [
+    {
+      idProduktu: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      ilość: 2,
+    },
+    {
+      idProduktu: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      ilość: 1,
+    },
+  ];
+}
+
+function zapiszKoszyk() {
+  localStorage.setItem("koszyk", JSON.stringify(koszyk));
+}
 
 export function dodajDoKoszyka(idProduktu) {
   let dopasowanyPrzedmiot;
@@ -26,6 +34,7 @@ export function dodajDoKoszyka(idProduktu) {
       ilość: 1,
     });
   }
+  zapiszKoszyk();
 }
 
 export function usunZKoszyka(idProduktu) {
@@ -38,4 +47,5 @@ export function usunZKoszyka(idProduktu) {
   });
 
   koszyk = nowyKoszyk;
+  zapiszKoszyk();
 }
