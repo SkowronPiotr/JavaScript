@@ -1,4 +1,4 @@
-import { koszyk } from "../data/koszyk.js";
+import { koszyk, dodajDoKoszyka } from "../data/koszyk.js";
 import { produkty } from "../data/products.js";
 
 let produktyHTML = "";
@@ -62,36 +62,22 @@ produkty.forEach((produkt) => {
 
 document.querySelector(".js-products-grid").innerHTML = produktyHTML;
 
+function aktualizacjaKoszyka() {
+  let przedmiotywKoszyku = 0;
+
+  koszyk.forEach((przedmiot) => {
+    przedmiotywKoszyku += przedmiot.ilość;
+  });
+
+  document.querySelector(".js-przedmioty-wkoszyku").innerHTML =
+    przedmiotywKoszyku;
+}
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const idProduktu = button.dataset.idProduktu;
     const nazwaProduktu = button.dataset.nazwaProduktu;
-
-    let dopasowanyPrzedmiot;
-
-    koszyk.forEach((przedmiot) => {
-      if (idProduktu === przedmiot.idProduktu) {
-        dopasowanyPrzedmiot = przedmiot;
-      }
-    });
-
-    if (dopasowanyPrzedmiot) {
-      dopasowanyPrzedmiot.ilość += 1;
-    } else {
-      koszyk.push({
-        idProduktu: idProduktu,
-        ilość: 1,
-        nazwaProduktu: nazwaProduktu,
-      });
-    }
-
-    let przedmiotywKoszyku = 0;
-
-    koszyk.forEach((przedmiot) => {
-      przedmiotywKoszyku += przedmiot.ilość;
-    });
-
-    document.querySelector(".js-przedmioty-wkoszyku").innerHTML =
-      przedmiotywKoszyku;
+    dodajDoKoszyka(idProduktu);
+    aktualizacjaKoszyka();
   });
 });
