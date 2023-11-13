@@ -1,4 +1,4 @@
-import { koszyk } from "../data/koszyk.js";
+import { koszyk, usunZKoszyka } from "../data/koszyk.js";
 import { produkty } from "../data/products.js";
 import { dzieleniePieniedzy } from "./narzędzia/waluta.js";
 
@@ -98,3 +98,10 @@ koszyk.forEach((przedmiot) => {
 });
 
 document.querySelector(".js-order-summary").innerHTML = koszykPodsumowanieHTML;
+
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const idProduktu = link.dataset.productId;
+    usunZKoszyka(idProduktu);
+  });
+});

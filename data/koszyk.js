@@ -1,4 +1,4 @@
-export const koszyk = [
+export let koszyk = [
   {
     idProduktu: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     ilość: 2,
@@ -26,4 +26,16 @@ export function dodajDoKoszyka(idProduktu) {
       ilość: 1,
     });
   }
+}
+
+export function usunZKoszyka(idProduktu) {
+  const nowyKoszyk = [];
+
+  koszyk.forEach((przedmiot) => {
+    if (przedmiot.idProduktu !== idProduktu) {
+      nowyKoszyk.push(przedmiot);
+    }
+  });
+
+  koszyk = nowyKoszyk;
 }
