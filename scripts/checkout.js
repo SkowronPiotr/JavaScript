@@ -15,34 +15,35 @@ const dzisiaj = dayjs();
 const dataDostawy = dzisiaj.add(7, "days");
 console.log(dataDostawy.format("dddd, MMMM D"));
 
-let koszykPodsumowanieHTML = "";
+function renderowanieZamowienia() {
+  let koszykPodsumowanieHTML = "";
 
-koszyk.forEach((przedmiot) => {
-  const idProduktu = przedmiot.idProduktu;
+  koszyk.forEach((przedmiot) => {
+    const idProduktu = przedmiot.idProduktu;
 
-  let pasujacyProdukt;
+    let pasujacyProdukt;
 
-  produkty.forEach((produkt) => {
-    if (produkt.id === idProduktu) {
-      pasujacyProdukt = produkt;
-    }
-  });
+    produkty.forEach((produkt) => {
+      if (produkt.id === idProduktu) {
+        pasujacyProdukt = produkt;
+      }
+    });
 
-  const opcjaDostawyId = przedmiot.opcjaDostawyId;
+    const opcjaDostawyId = przedmiot.opcjaDostawyId;
 
-  let opcjaDostawy;
+    let opcjaDostawy;
 
-  opcjeDostawy.forEach((opcja) => {
-    if (opcja.id === opcjaDostawyId) {
-      opcjaDostawy = opcja;
-    }
-  });
+    opcjeDostawy.forEach((opcja) => {
+      if (opcja.id === opcjaDostawyId) {
+        opcjaDostawy = opcja;
+      }
+    });
 
-  const dzisiaj = dayjs();
-  const dataDostawy = dzisiaj.add(opcjaDostawy.liczbaDni, "days");
-  const dataString = dataDostawy.format("dddd, D MMMM");
+    const dzisiaj = dayjs();
+    const dataDostawy = dzisiaj.add(opcjaDostawy.liczbaDni, "days");
+    const dataString = dataDostawy.format("dddd, D MMMM");
 
-  koszykPodsumowanieHTML += `
+    koszykPodsumowanieHTML += `
     <div class="cart-item-container
       js-cart-item-container-${pasujacyProdukt.id}">
       <div class="delivery-date">
@@ -84,23 +85,23 @@ koszyk.forEach((przedmiot) => {
       </div>
     </div>
   `;
-});
+  });
 
-function opcjeDostawyHTML(pasujacyProdukt, przedmiot) {
-  let html = "";
+  function opcjeDostawyHTML(pasujacyProdukt, przedmiot) {
+    let html = "";
 
-  opcjeDostawy.forEach((opcjaDostawy) => {
-    const dzisiaj = dayjs();
-    const dataDostawy = dzisiaj.add(opcjaDostawy.liczbaDni, "days");
-    const dataString = dataDostawy.format("dddd, D MMMM");
-    const cenaString =
-      opcjaDostawy.cenaGrosze === 0
-        ? "Darmowa wysyłka"
-        : `${dzieleniePieniedzy(opcjaDostawy.cenaGrosze)}zł -`;
+    opcjeDostawy.forEach((opcjaDostawy) => {
+      const dzisiaj = dayjs();
+      const dataDostawy = dzisiaj.add(opcjaDostawy.liczbaDni, "days");
+      const dataString = dataDostawy.format("dddd, D MMMM");
+      const cenaString =
+        opcjaDostawy.cenaGrosze === 0
+          ? "Darmowa wysyłka"
+          : `${dzieleniePieniedzy(opcjaDostawy.cenaGrosze)}zł -`;
 
-    const czySprawdzone = opcjaDostawy.id === przedmiot.opcjaDostawyId;
+      const czySprawdzone = opcjaDostawy.id === przedmiot.opcjaDostawyId;
 
-    html += `
+      html += `
           <div class="delivery-option js-delivery-option"
           data-produkt-id="${pasujacyProdukt.id}"
           data-opcja-dostawy-id="${opcjaDostawy.id}">
@@ -117,28 +118,33 @@ function opcjeDostawyHTML(pasujacyProdukt, przedmiot) {
             </div>
           </div>
     `;
+    });
+
+    return html;
+  }
+
+  document.querySelector(".js-order-summary").innerHTML =
+    koszykPodsumowanieHTML;
+
+  document.querySelectorAll(".js-delete-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const idProduktu = link.dataset.productId;
+      usunZKoszyka(idProduktu);
+
+      const pojemnik = document.querySelector(
+        `.js-cart-item-container-${idProduktu}`
+      );
+      pojemnik.remove();
+    });
   });
 
-  return html;
+  document.querySelectorAll(".js-delivery-option").forEach((element) => {
+    element.addEventListener("click", () => {
+      const { produktId, opcjaDostawyId } = element.dataset;
+      aktualiacjaOpcjiDostawy(produktId, opcjaDostawyId);
+      renderowanieZamowienia();
+    });
+  });
 }
 
-document.querySelector(".js-order-summary").innerHTML = koszykPodsumowanieHTML;
-
-document.querySelectorAll(".js-delete-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    const idProduktu = link.dataset.productId;
-    usunZKoszyka(idProduktu);
-
-    const pojemnik = document.querySelector(
-      `.js-cart-item-container-${idProduktu}`
-    );
-    pojemnik.remove();
-  });
-});
-
-document.querySelectorAll(".js-delivery-option").forEach((element) => {
-  element.addEventListener("click", () => {
-    const { produktId, opcjaDostawyId } = element.dataset;
-    aktualiacjaOpcjiDostawy(produktId, opcjaDostawyId);
-  });
-});
+renderowanieZamowienia();
