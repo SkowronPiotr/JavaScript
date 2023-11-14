@@ -52,3 +52,16 @@ export function usunZKoszyka(idProduktu) {
   koszyk = nowyKoszyk;
   zapiszKoszyk();
 }
+
+export function aktualiacjaOpcjiDostawy(idProduktu, opcjaDostawyId) {
+  let dopasowanyPrzedmiot;
+
+  koszyk.forEach((przedmiot) => {
+    if (idProduktu === przedmiot.idProduktu) {
+      dopasowanyPrzedmiot = przedmiot;
+    }
+  });
+
+  dopasowanyPrzedmiot.opcjaDostawyId = opcjaDostawyId;
+  zapiszKoszyk();
+}

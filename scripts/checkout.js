@@ -1,4 +1,8 @@
-import { koszyk, usunZKoszyka } from "../data/koszyk.js";
+import {
+  koszyk,
+  usunZKoszyka,
+  aktualiacjaOpcjiDostawy,
+} from "../data/koszyk.js";
 import { produkty } from "../data/products.js";
 import { dzieleniePieniedzy } from "./narzędzia/waluta.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
@@ -97,7 +101,9 @@ function opcjeDostawyHTML(pasujacyProdukt, przedmiot) {
     const czySprawdzone = opcjaDostawy.id === przedmiot.opcjaDostawyId;
 
     html += `
-          <div class="delivery-option">
+          <div class="delivery-option js-delivery-option"
+          data-produkt-id="${pasujacyProdukt.id}"
+          data-opcja-dostawy-id="${opcjaDostawy.id}">
             <input type="radio" ${czySprawdzone ? "checked" : ""}
               class="delivery-option-input"
               name="delivery-option-${pasujacyProdukt.id}">
@@ -127,5 +133,12 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
       `.js-cart-item-container-${idProduktu}`
     );
     pojemnik.remove();
+  });
+});
+
+document.querySelectorAll(".js-delivery-option").forEach((element) => {
+  element.addEventListener("click", () => {
+    const { produktId, opcjaDostawyId } = element.dataset;
+    aktualiacjaOpcjiDostawy(produktId, opcjaDostawyId);
   });
 });
