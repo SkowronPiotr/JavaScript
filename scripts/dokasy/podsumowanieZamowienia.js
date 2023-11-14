@@ -8,12 +8,7 @@ import { dzieleniePieniedzy } from "../narzędzia/waluta.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
 import { opcjeDostawy, renderujopcjeDostawy } from "../../data/opcjeDostawy.js";
-
-hello();
-
-const dzisiaj = dayjs();
-const dataDostawy = dzisiaj.add(7, "days");
-console.log(dataDostawy.format("dddd, MMMM D"));
+import { renderujPodsumowaniePlatnosci } from "./podsumowaniePlatnosci.js";
 
 export function renderowanieZamowienia() {
   let koszykPodsumowanieHTML = "";
@@ -123,6 +118,7 @@ export function renderowanieZamowienia() {
         `.js-cart-item-container-${idProduktu}`
       );
       pojemnik.remove();
+      renderujPodsumowaniePlatnosci();
     });
   });
 
@@ -131,6 +127,7 @@ export function renderowanieZamowienia() {
       const { produktId, opcjaDostawyId } = element.dataset;
       aktualiacjaOpcjiDostawy(produktId, opcjaDostawyId);
       renderowanieZamowienia();
+      renderujPodsumowaniePlatnosci();
     });
   });
 }
