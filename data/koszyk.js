@@ -5,10 +5,12 @@ if (!koszyk) {
     {
       idProduktu: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       ilość: 2,
+      opcjaDostawyId: "1",
     },
     {
       idProduktu: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
       ilość: 1,
+      opcjaDostawyId: "2",
     },
   ];
 }
@@ -32,6 +34,7 @@ export function dodajDoKoszyka(idProduktu) {
     koszyk.push({
       idProduktu: idProduktu,
       ilość: 1,
+      opcjaDostawyId: "1",
     });
   }
   zapiszKoszyk();

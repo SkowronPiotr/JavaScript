@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Web Page</title>
+  </head>
+  <body>
+    <!-- Your HTML content -->
+
+    <!-- Add this script tag to include Day.js from unpkg.com -->
+    <script type="module">
+      import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+
+      // Now you can use dayjs as usual
+      const now = dayjs();
+      console.log(now.format("YYYY-MM-DD HH:mm:ss"));
+    </script>
+
+    <!-- Your other scripts -->
+  </body>
+</html>
