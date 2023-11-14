@@ -1,3 +1,14 @@
+export function dopasujProdukt(idProduktu) {
+  let pasujacyProdukt;
+
+  produkty.forEach((produkt) => {
+    if (produkt.id === idProduktu) {
+      pasujacyProdukt = produkt;
+    }
+  });
+  return pasujacyProdukt;
+}
+
 export const produkty = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -18,7 +29,7 @@ export const produkty = [
       gwiazdki: 4,
       licznik: 127,
     },
-    cenaGrosze: 2095,
+    cenaGrosze: 2099,
     slowaKluczowe: ["sports", "basketballs"],
   },
   {

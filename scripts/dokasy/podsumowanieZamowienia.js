@@ -3,11 +3,11 @@ import {
   usunZKoszyka,
   aktualiacjaOpcjiDostawy,
 } from "../../data/koszyk.js";
-import { produkty } from "../../data/products.js";
+import { produkty, dopasujProdukt } from "../../data/products.js";
 import { dzieleniePieniedzy } from "../narzędzia/waluta.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
-import { opcjeDostawy } from "../../data/opcjeDostawy.js";
+import { opcjeDostawy, renderujopcjeDostawy } from "../../data/opcjeDostawy.js";
 
 hello();
 
@@ -21,23 +21,11 @@ export function renderowanieZamowienia() {
   koszyk.forEach((przedmiot) => {
     const idProduktu = przedmiot.idProduktu;
 
-    let pasujacyProdukt;
-
-    produkty.forEach((produkt) => {
-      if (produkt.id === idProduktu) {
-        pasujacyProdukt = produkt;
-      }
-    });
+    const pasujacyProdukt = dopasujProdukt(idProduktu);
 
     const opcjaDostawyId = przedmiot.opcjaDostawyId;
 
-    let opcjaDostawy;
-
-    opcjeDostawy.forEach((opcja) => {
-      if (opcja.id === opcjaDostawyId) {
-        opcjaDostawy = opcja;
-      }
-    });
+    const opcjaDostawy = renderujopcjeDostawy(opcjaDostawyId);
 
     const dzisiaj = dayjs();
     const dataDostawy = dzisiaj.add(opcjaDostawy.liczbaDni, "days");
@@ -59,7 +47,7 @@ export function renderowanieZamowienia() {
               ${pasujacyProdukt.nazwa}
             </div>
             <div class="product-price">
-              $${dzieleniePieniedzy(pasujacyProdukt.cenaGrosze)}
+              ${dzieleniePieniedzy(pasujacyProdukt.cenaGrosze)} zł
             </div>
             <div class="product-quantity">
               <span>

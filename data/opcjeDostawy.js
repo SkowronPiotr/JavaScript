@@ -15,3 +15,15 @@ export const opcjeDostawy = [
     cenaGrosze: 5000,
   },
 ];
+
+export function renderujopcjeDostawy(idOpcjiDostawy) {
+  let opcjaDostawy;
+
+  opcjeDostawy.forEach((opcja) => {
+    if (opcja.id === idOpcjiDostawy) {
+      opcjaDostawy = opcja;
+    }
+  });
+
+  return opcjaDostawy;
+}
