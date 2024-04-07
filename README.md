@@ -1,4 +1,4 @@
-JavaScript basics project - amazon clone, rock & paper & scissors, to do list
+#JavaScript basics project - amazon clone, rock & paper & scissors, to do list
 
 Repository contains 2 basic projects:
 - Rock & paper & scissors
