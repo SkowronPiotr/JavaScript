@@ -4,7 +4,7 @@ Repository contains 2 basic projects:
 - Rock & paper & scissors
 - To do list
 
-To see project open them with live server
+To see project open html themplate with live server
 
 ### To do list
 
